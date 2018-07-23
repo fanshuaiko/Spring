@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop.xsd"
+        >
+        
+
+
+    
+   <bean id="services" class="com.SpringAOP.Services"></bean>
+    <bean id="aspect" class="com.SpringAOP.Aspect"></bean>
+   
+   <aop:config>
+   		<aop:aspect id="aspectAOP" ref="aspect">
+   		<aop:pointcut expression="execution(* com.SpringAOP.Services.*(..))" id="pointcut"/>
+   			<aop:before method="before" pointcut-ref="pointcut"/>
+			<aop:after-returning method="afterReturning" pointcut-ref="pointcut"/>
+			<!-- 抛出异常时执行的方法 -->
+			<aop:after-throwing method="throwIng" pointcut-ref="pointcut"/>
+			<!-- 不管是否抛出异常，after都将是最后执行的方法 -->
+			<aop:after method="after" pointcut-ref="pointcut"/>
+			<!-- 环绕通知 -->
+			<aop:around method="around" pointcut-ref="pointcut"/> 
+			<!-- 由参数方法的环绕通知 -->
+			<aop:around method="aroundInit" pointcut="execution(* com.SpringAOP.Services.init(String,int))
+			 and args(name,times)"/>
+			 
+			 <aop:declare-parents 
+			 types-matching="com.SpringAOP.*(..)" 
+			 implement-interface="com.SpringAOP.Fit" 
+			 default-impl="com.SpringAOP.FitImpl"/>
+			 
+   		</aop:aspect>
+   </aop:config>  
+   
+</beans>

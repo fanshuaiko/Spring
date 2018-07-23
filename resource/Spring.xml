@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd"
+        default-autowire="byName"
+        >
+
+    <!-- services -->
+
+    <bean id="Student" class="com.entity.Student" >
+       <!--  <property name="address" ref="Address"/> -->
+      <!--  <constructor-arg name="address" ref="Address"></constructor-arg> -->
+    </bean>
+    <bean id="address" class="com.entity.Address">
+    </bean>
+    <bean id="Demo" class="com.resourceLoader.Demo"></bean>
+</beans>
